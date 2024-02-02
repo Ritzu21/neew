@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alphabetical Sort</title>
+  <style>
+    /* Add your CSS styles here */
+  </style>
+</head>
+<body>
+
+  <label for="itemInput">Enter item:</label>
+  <input type="text" id="itemInput" onkeydown="handleKeyPress(event)">
+  <button onclick="addItem()">Add Item</button>
+
+  <h2>Enter the Data to Sort:</h2>
+  <ul id="dataList"></ul>
+
+  <button onclick="sortData()">Sort Alphabetically</button>
+  <button onclick="clearData()">Clear Data</button>
+
+  <script>
+    let data = [];
+
+    function addItem() {
+      // Get the user input
+      const userInput = document.getElementById('itemInput').value.trim();
+
+      // Check if the input is not empty
+      if (userInput !== '') {
+        // Add the item to the data array
+        data.push(userInput);
+
+        // Display the data in the "Enter the Data to Sort" section
+        displayData();
+        
+        // Clear the input field
+        document.getElementById('itemInput').value = '';
+      }
+    }
+
+    function handleKeyPress(event) {
+      // Check if the Enter key is pressed (key code 13)
+      if (event.keyCode === 13) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Add the item when Enter is pressed
+        addItem();
+      }
+    }
+
+    function displayData() {
+      // Get the data list
+      const dataList = document.getElementById('dataList');
+
+      // Clear the data list
+      dataList.innerHTML = '';
+
+      // Append the items to the list
+      data.forEach(function (item) {
+        const newItem = document.createElement('li');
+        newItem.textContent = item;
+        dataList.appendChild(newItem);
+      });
+    }
+
+    function sortData() {
+      // Sort the data array
+      data.sort(function (a, b) {
+        return a.localeCompare(b);
+      });
+
+      // Display the sorted data
+      displayData();
+    }
+
+    function clearData() {
+      // Clear the data array and the displayed list
+      data = [];
+      displayData();
+    }
+  </script>
+</body>
+</html>
